@@ -1,0 +1,43 @@
+﻿@using Sheta.Data.Models.Entities.Product
+@model IEnumerable<Sheta.Data.Models.Entities.Product.ProductGroup>;
+
+<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+    <ul class="nav navbar-nav ">
+        @foreach (var group in Model.Where(c => c.ParentId == null))
+        {
+            <li class="dropdown ">
+                <a href="#" class="dropdown-toggle  hyper" data-toggle="dropdown"><span>@group.GroupTitle<b class="caret"></b></span></a>
+                @if (Model.Any(g => g.ParentId == group.GroupId))
+                {
+                    <ul class="dropdown-menu multi">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <ul class="multi-column-dropdown">
+                                    @{ int c = Model.Count(g => g.ParentId == group.GroupId);}
+                                    @foreach (var sub in Model.Where(g => g.ParentId == group.GroupId).Take(c/2))
+                                    {
+
+                                        <li><a href="/product/index/@sub.GroupId">@sub.GroupTitle</a></li>
+
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-sm-5">
+                                <ul class="multi-column-dropdown">
+                                    @foreach (var sub in Model.Where(g => g.ParentId == group.GroupId).Skip(c/2))
+                                    {
+
+                                        <li><a href="/product/index/@sub.GroupId">@sub.GroupTitle</a></li>
+
+                                    }
+                                </ul>
+                            </div>
+
+                        </div>
+
+                    </ul>
+                }
+            </li>
+        }
+    </ul>
+</div>

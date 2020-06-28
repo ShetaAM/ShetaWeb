@@ -1,0 +1,55 @@
+﻿@page
+@model Sheta.Web.Pages.Admin.Role.IndexModel
+@{
+    ViewData["Title"] = "لیست نقش ها";
+}
+
+    <div class="main-content" id="panel">
+        @await Component.InvokeAsync("NavbarGroupViewModel")
+        <!-- Header -->
+        <hr />
+        <div class="container-fluid mt--6">
+            <!-- Dark table -->
+            <div class="row">
+                <div class="col">
+                    <div class="card bg-default shadow">
+                        <div class="card-header bg-transparent border-0">
+                            <h3 class="text-white mb-0">لیست دسترسی ها</h3>
+                            <a href="/admin/role/createrole" class="btn btn-success">افزودن نقش</a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-dark table-flush">
+                                <thead class="thead-dark" style="font-size: medium!important;">
+                                    <tr>
+                                        <th>عنوان نقش</th>
+                                        <th>دستورات</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list">
+                                    @foreach (var role in Model.RolesList)
+                                    {
+                                        <tr>
+                                            <td>@role.RoleTitle</td>
+                                            <td>
+                                                <a href="/Admin/Role/EditRole/@role.RoleId" class="btn btn-warning btn-sm">
+                                                    ویرایش
+                                                </a>
+                                                <a href="/Admin/Role/DeleteRole/@role.RoleId" class="btn btn-danger btn-sm">
+                                                    حذف
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer py-4 shadow" style="        background-color: #263238;">
+                            <nav aria-label="...">
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

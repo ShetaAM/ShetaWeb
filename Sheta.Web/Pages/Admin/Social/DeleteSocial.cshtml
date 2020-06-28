@@ -1,0 +1,29 @@
+﻿@page
+@model Sheta.Web.Pages.Admin.Social.DeleteSocialModel
+@{
+    ViewData["Title"] = "DeleteSocial";
+    Layout = "~/Pages/Shared/Admin_Layout.cshtml";
+}
+
+<div class="main-content" id="panel">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-user">
+                <div class="card-header">
+                    <form method="post">
+                        <input type="hidden" name="socialid" value="@ViewData["socialid"]" />
+                        <dl class="dl-horizontal">
+                            <dt>عنوان : </dt>
+                            <dd>@Model.Social.SocialName</dd>
+                            <dd>
+                                <input type="submit" value="حذف" class="btn btn-danger" />
+                            </dd>
+                        </dl>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

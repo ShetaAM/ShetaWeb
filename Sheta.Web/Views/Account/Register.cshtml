@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Components.Routing
+@model Sheta.CoreLayer.DTOs.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="login">
+	
+    <div class="main-agileits">
+        <div class="form-w3agile">
+            <h3>ثبت نام</h3>
+            <form asp-action="register">
+                <div class="key">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <input type="text" asp-for="UserName" required="" placeholder="نام کاربری">
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="key">
+                    <i class="fa fa-envelope" aria-hidden="true" style="display: inline;"></i>
+                    <input type="text" asp-for="Email" required="" placeholder="ایمیل">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="key">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input type="password" asp-for="Password" required="" placeholder="کلمه عبور">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="key">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input type="password" asp-for="RePassword" required="" placeholder="تکرار کلمه عبور">
+                    <span asp-validation-for="RePassword" class="text-danger"></span>
+                    <div class="clearfix"></div>
+                </div>
+                <input type="submit" value="ثبت نام">
+            </form>
+        </div>
+        <div class="forg">
+            <a href="/login">ورود</a>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

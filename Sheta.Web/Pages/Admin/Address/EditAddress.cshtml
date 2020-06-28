@@ -1,0 +1,72 @@
+﻿@page "{id}"
+@model Sheta.Web.Pages.Admin.Address.EditAddressModel
+@{
+    ViewData["Title"] = "EditAddress";
+    Layout = "~/Pages/Shared/Admin_Layout.cshtml";
+}
+
+    <div class="main-content" id="panel">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-user">
+                    <div class="card-header">
+                        <h5 class="card-title" style="font-size: 25px;">افزودن آدرس</h5>
+                    </div>
+                    <div class="card-body" style="float: right !important;">
+
+                        <form method="post">
+                            <div class="row">
+                                <div class="col-md-6 pr-1">
+                                    <div class="form-group">
+                                        <label class="control-label" for="UserName">استان</label>
+                                        <input type="text" asp-for="Addresses.Ostan" class="form-control">
+                                        <span asp-validation-for="Addresses.Ostan"></span>
+                                        <span class="text-danger field-validation-valid" data-valmsg-for="ProductTitle" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pr-1">
+                                    <div class="form-group">
+                                        <label class="control-label" for="UserName">شهرستان</label>
+                                        <input type="text" asp-for="Addresses.Shahrestan" class="form-control">
+                                        <span asp-validation-for="Addresses.Shahrestan"></span>
+                                        <span class="text-danger field-validation-valid" data-valmsg-for="ProductTitle" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pr-1">
+                                    <div class="form-group">
+                                        <label class="control-label" for="UserName">شهر</label>
+                                        <input type="text" asp-for="Addresses.City" class="form-control">
+                                        <span asp-validation-for="Addresses.City"></span>
+                                        <span class="text-danger field-validation-valid" data-valmsg-for="ProductTitle" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 pr-1">
+                                    <div class="form-group">
+                                        <label class="control-label" for="UserName">کدپستی</label>
+                                        <input type="text" asp-for="Addresses.CodePosty" class="form-control">
+                                        <span asp-validation-for="Addresses.CodePosty"></span>
+                                        <span class="text-danger field-validation-valid" data-valmsg-for="ProductTitle" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 pr-1">
+                                    <div class="form-group">
+                                        <label class="control-label" for="UserName">آدرس دقیق</label>
+                                        <textarea type="text" asp-for="Addresses.Adres" class="form-control"></textarea>
+                                        <span asp-validation-for="Addresses.Adres"></span>
+                                        <span class="text-danger field-validation-valid" data-valmsg-for="ProductTitle" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                                <input type="hidden" asp-for="Addresses.AddressId" />
+                                <div class="col-md-12 pl-1">
+                                    <div class="form-group">
+                                        <input type="submit" value="ذخیره اطلاعات" class="btn btn-success" style="width: 100%;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

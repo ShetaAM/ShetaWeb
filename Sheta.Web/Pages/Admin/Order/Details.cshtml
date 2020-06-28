@@ -1,0 +1,80 @@
+﻿@page "{id}"
+@using Sheta.CoreLayer.Convertor
+@using Sheta.CoreLayer.Servises.Interface
+@model Sheta.Web.Pages.Admin.Order.DetailsModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/Admin_Layout.cshtml";
+}
+@inject IProductService _ProductService;
+
+    <div class="main-content" id="panel">
+        <hr />
+        <div class="container-fluid mt--6">
+            <!-- Dark table -->
+            <div class="row">
+                <div class="col">
+                    <div class="card bg-default shadow">
+                        <div class="card-header bg-transparent border-0">
+                            <h3 class="text-white mb-0">جزئیات فاکتور</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-dark table-flush">
+                                <thead class="thead-dark" style="font-size: medium!important;">
+                                    <tr>
+                                        <th>کد فاکتور</th>
+                                        <th style="width: auto;">تاریخ</th>
+                                        <th>سفارشات</th>
+                                        <th>هزینه</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style=" white-space: inherit;">@Model.OrderId</td>
+                                        <td style=" white-space: inherit;">
+                                            @Model.Order.CreateDate.ToShamsi()
+                                        </td>
+                                        <td style=" white-space: inherit;">
+                                            <table class="table align-items-center table-dark table-flush">
+                                                <thead class="thead-dark" style="font-size: medium!important;">
+                                                    <tr>
+                                                        <th>محصول</th>
+                                                        <th>تعداد</th>
+                                                        <th>قیمت</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @inject ISiteService _SiteService;
+                                                    @foreach (var order in _SiteService.GetOrderDetailsForPostOrder(Model.OrderId))
+                                                    {
+                                                        <tr>
+                                                            <td style=" white-space: inherit;"><a href="/Admin/Product?filter=@order.Product.ProductTitle">@order.Product.ProductTitle</a></td>
+                                                            <td style=" white-space: inherit;">@order.Count</td>
+                                                            <td style=" white-space: inherit;">@order.Price</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td style=" white-space: inherit;">
+                                            <dl>
+                                                <dd style="float: right; text-align: right; ">جمع کل:</dd>
+                                                <dt>@Model.Order.OrderSum <small>تومان</small></dt>
+                                                <dd></dd>
+                                            </dl>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card-footer py-4 shadow" style="background-color: #263238;">
+                            <nav aria-label="...">
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

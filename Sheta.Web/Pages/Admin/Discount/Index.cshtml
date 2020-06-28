@@ -1,0 +1,76 @@
+﻿@page
+@using Sheta.CoreLayer.Convertor
+@model Sheta.Web.Pages.Admin.Discount.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/Admin_Layout.cshtml";
+}
+
+    <div class="main-content" id="panel">
+        @await Component.InvokeAsync("NavbarGroupViewModel")
+        <!-- Header -->
+        <hr />
+        <div class="container-fluid mt--6">
+            <!-- Dark table -->
+            <div class="row">
+                <div class="col">
+                    <div class="card bg-default shadow">
+                        <div class="card-header bg-transparent border-0">
+                            <h3 class="text-white mb-0">لیست تخفیف ها</h3>
+                            <a href="/admin/discount/creatediscount" class="btn btn-success">افزودن تخفیف</a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-dark table-flush">
+                                <thead class="thead-dark" style="font-size: medium!important;">
+                                    <tr>
+                                        <th scope="col" class="sort" data-sort="name">کد تخفیف</th>
+                                        <th scope="col" class="sort" data-sort="budget">تعداد</th>
+                                        <th scope="col" class="sort" data-sort="budget">تاریخ شروع</th>
+                                        <th scope="col" class="sort" data-sort="budget">تاریخ پایان</th>
+                                        <th scope="col" class="sort" data-sort="status">دستورات</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list">
+
+                                    @foreach (var d in Model.Discounts)
+                                    {
+                                        <tr>
+                                            <td>@d.DiscountCode</td>
+                                            <td>@d.UsableCount</td>
+                                            <td>@((d.StartDate!=null)?d.StartDate.Value.ToShamsi():"")</td>
+                                            <td>@((d.EndTime!=null)?d.EndTime.Value.ToShamsi():"")</td>
+
+                                            <td>
+                                                <a href="/Admin/discount/EditDiscount/@d.DiscountId" class="btn btn-warning btn-sm">
+                                                    ویرایش
+                                                </a>
+                                                <a href="/Admin/discount/DeleteDiscount/@d.DiscountId" class="btn btn-danger btn-sm">
+                                                    حذف
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer py-4 shadow" style="        background-color: #263238;">
+                            <nav aria-label="...">
+                                <ul class="pagination justify-content-end mb-0">
+
+                                    @for (int i = 1; i <= Model.pagecount; i++)
+                                    {
+                                        <li class="page-item @((i==Model.currentpage)?"active":"")" aria-controls="dataTables-example" tabindex="0">
+                                            <a class="page-link" href="/Admin/product?PageId=@i">@i</a>
+                                        </li>
+                                    }
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

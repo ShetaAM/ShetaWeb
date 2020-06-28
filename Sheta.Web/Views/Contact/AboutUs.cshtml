@@ -1,0 +1,24 @@
+﻿@using Sheta.CoreLayer.Servises.Interface
+@using Sheta.Data.Models.Entities.Site
+
+@{
+    ViewData["Title"] = "AboutUs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@inject ISiteService _SiteService;
+@{
+    Setting about = _SiteService.GetContactInfo();
+}
+    <div class="about">
+        <div class="container">
+            <h3>درباره ما</h3>
+            <div class="about-info">
+                <div class="col-md-12 about-grids">
+                    <h4> تاریخچه و فعالیت سایت </h4>
+                    <p style="text-align: right; padding-top: 15px;color: gray">@Html.Raw(about.AboutUs)</p>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+

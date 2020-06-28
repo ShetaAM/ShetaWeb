@@ -1,0 +1,31 @@
+﻿@page "{id}"
+@model Sheta.Web.Pages.Admin.ProductDetail.DeleteDetailModel
+@{
+    ViewData["Title"] = "DeleteDetail";
+    Layout = "~/Pages/Shared/Admin_Layout.cshtml";
+}
+
+    <div class="main-content" id="panel">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-user">
+                    <div class="card-header">
+                        <form method="post">
+                            <input type="hidden" asp-for="ProductDetail.PdId" />
+                            @Model.productid=@Model.ProductDetail.ProductId;
+                            <dl class="dl-horizontal">
+                                <dt>نام محصول : </dt>
+                                <dd>@Model.ProductDetail.DetailCaption</dd>
+                                <dd>
+                                    <input type="submit" value="حذف" class="btn btn-danger" />
+                                </dd>
+                            </dl>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+

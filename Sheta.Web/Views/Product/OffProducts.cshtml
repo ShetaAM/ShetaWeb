@@ -1,0 +1,56 @@
+﻿@using Microsoft.EntityFrameworkCore.Query.Internal
+@using Sheta.CoreLayer.DTOs
+@model IEnumerable<Sheta.CoreLayer.DTOs.ShowProductViewModel>
+
+@{
+    ViewData["Title"] = "OffProducts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form id="formFilter" asp-action="Index" method="get">
+    <div class="content">
+
+
+        <div class="container">
+           
+            <div class="col-md-12 col-sm-8 women-dresses">
+                <div class="women-set1">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-4 top-product-grids tp1 animated wow slideInUp" data-wow-delay=".5s">
+                            <a href="/product/@item.ProductId">
+                                <div class="product-img">
+                                    <img style="height: 180px;" src="/images/Product/@item.ProductImage" alt="" />
+                                    <div class="p-mask">
+                                        <a href="/product/@item.ProductId" class="w3ls-cart pw3ls-cart"><h5 style="color: blanchedalmond; text-align: center !important;">جزئیات محصول</h5></a>
+
+                                    </div>
+                                </div>
+                            </a>
+
+                            <h4>@item.ProductTitle</h4>
+                            @if (item.ProductPrice == 0)
+                            {
+                                <h5>رایگان</h5>
+                            }
+                            else
+                            {
+                                <h5>@item.ProductPrice.ToString("#,0 تومان")  <span style="font-size: 13px; color: green;">@item.ProductDiscount %</span></h5>
+                            }
+
+                            <hr />
+                        </div>
+                    }
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+<script>
+    function changeGroup() {
+        $("#formFilter").submit();
+    }
+</script>
+

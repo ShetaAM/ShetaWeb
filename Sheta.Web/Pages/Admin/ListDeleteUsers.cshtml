@@ -1,0 +1,82 @@
+﻿@page
+@model Sheta.Web.Pages.Admin.ListDeleteUsersModel
+@{
+    ViewData["Title"] = "ListDeleteUsers";
+    Layout = "~/Pages/Shared/Admin_Layout.cshtml";
+}
+    <div class="main-content" id="panel">
+        @await Component.InvokeAsync("NavbarGroupViewModel")
+        <!-- Header -->
+        <hr />
+        <div class="container-fluid mt--6">
+            <!-- Dark table -->
+            <div class="row">
+                <div class="col">
+                    <div class="card bg-default shadow">
+                        <div class="card-header bg-transparent border-0">
+                            <h3 class="text-white mb-0">لیست کاربران حذف شده</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-dark table-flush">
+                                <thead class="thead-dark" style="font-size: medium!important;">
+                                    <tr>
+                                        <th scope="col" class="sort" data-sort="name">نام کاربری</th>
+                                        <th scope="col" class="sort" data-sort="budget">ایمیل</th>
+                                        <th scope="col" class="sort" data-sort="status">وضعیت</th>
+                                        <th scope="col">تاریخ ثبت نام</th>
+                                        <th scope="col" class="sort" data-sort="completion">دستورات</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list">
+
+                                    @foreach (var user in Model.UserForAdminViewModel.Users)
+                                    {
+                                        <tr>
+                                            <td>@user.UserName</td>
+                                            <td>@user.Email</td>
+                                            <td>
+                                                @if (user.IsActive)
+                                                {
+                                                    <span class="badge badge-dot mr-4">
+                                                        <i class="bg-success"></i>
+                                                        <span class="text-success">فعال</span>
+                                                    </span>
+
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-dot mr-4">
+                                                        <i class="bg-danger"></i>
+                                                        <span class="text-danger">غیرفعال</span>
+                                                    </span>
+                                                }
+                                            </td>
+                                            <td>@user.RegisterDate</td>
+                                            <td>
+                                                
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card-footer py-4 shadow" style="        background-color: #263238;">
+                            <nav aria-label="...">
+                                <ul class="pagination justify-content-end mb-0">
+
+                                    @for (int i = 1; i <= Model.UserForAdminViewModel.PageCount; i++)
+                                    {
+                                        <li class="page-item  @((i==Model.UserForAdminViewModel.CurentPage)?"active":"")" aria-controls="dataTables-example" tabindex="0">
+                                            <a class="page-link" href="/Admin/user?PageId=@i">@i</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

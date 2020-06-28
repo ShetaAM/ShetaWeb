@@ -1,0 +1,31 @@
+﻿@page
+@model Sheta.Web.Pages.Admin.ContactUs.DeleteContactUsModel
+@{
+    ViewData["Title"] = "DeleteContactUs";
+    Layout = "~/Pages/Shared/Admin_Layout.cshtml";
+}
+
+    <div class="main-content" id="panel">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-user">
+                    <div class="card-header">
+                        <form method="post">
+                            <input type="hidden" name="tamasid" value="@ViewData["tamasid"]" />
+                            <dl class="dl-horizontal">
+                                <dt>پیام : </dt>
+                                <dd>@Model.Tamas.name</dd>
+                                <dt></dt>
+                                <dd>
+                                    <input type="submit" value="حذف" class="btn btn-danger" />
+                                </dd>
+                            </dl>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Sheta.Data.Models.Entities.Site.UserAddress>;
+@{
+    ViewData["Title"] = "Address";
+    Layout = "~/Views/Shared/_UserPanel.cshtml";
+}
+
+<nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" href="/panel">پنل کاربری</a>
+        </div>
+
+    </div>
+</nav>
+<!-- End Navbar -->
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"> آدرس های شما</h4>
+                    <a href="createaddress"class="btn btn-success">افزودن آدرس جدید</a>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <table class="table" style="text-align: right !important;">
+
+                            <thead class=" text-primary">
+                                <tr>
+                                    <th>کد</th>
+                                    <th>آدرس</th>
+                                    <th>شهر</th>
+                                    <th>کد پستی</th>
+                                    <th>دستورات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Address.AddressId</td>
+                                        <td>@item.Address.Adres</td>
+                                        <td>@item.Address.City</td>
+                                        <td>@item.Address.CodePosty</td>
+                                        <td>
+                                            <form action="/UserPanel/DeleteAddress/@item.Address.AddressId" method="post">
+                                                <a href="/editaddress/@item.Address.AddressId" class="btn btn-warning btn-sm">ویرایش</a>
+                                                <input type="hidden" name="@item.Address.AddressId" value="@item.Address.AddressId" />
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    حدف
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

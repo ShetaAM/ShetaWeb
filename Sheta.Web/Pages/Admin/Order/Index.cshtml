@@ -1,0 +1,85 @@
+﻿@page
+@using Sheta.CoreLayer.Convertor
+@using Sheta.CoreLayer.Servises.Interface
+@model Sheta.Web.Pages.Admin.Order.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/Admin_Layout.cshtml";
+}
+@inject IUserService _UserService;
+
+    <div class="main-content" id="panel">
+        @await Component.InvokeAsync("NavbarGroupViewModel")
+        <!-- Header -->
+        <hr />
+        <div class="container-fluid mt--6">
+            <!-- Dark table -->
+            <div class="row">
+                <div class="col">
+                    <div class="card bg-default shadow">
+                        <div class="card-header bg-transparent border-0">
+                            <h3 class="text-white mb-0">لیست فاکتور ها</h3>
+                            <a class="btn btn-white" style="color: black" href="/Admin/postorder">لیست فاکتور های پستی<i class="ni ni-delivery-fast"></i></a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-dark table-flush">
+                                <thead class="thead-dark" style="font-size: medium!important;">
+                                    <tr>
+                                        <th scope="col" class="sort" data-sort="name">شماره فاکتور</th>
+                                        <th scope="col" class="sort" data-sort="budget">کاربر</th>
+                                        <th scope="col" class="sort" data-sort="status">جمع کل</th>
+                                        <th scope="col" class="sort" data-sort="status">وضعیت</th>
+                                        <th scope="col" class="sort" data-sort="completion">تاریخ</th>
+                                        <th scope="col" class="sort" data-sort="completion">دستورات</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list">
+
+                                    @foreach (var order in Model.Orders)
+                                    {
+                                        <tr>
+                                            <td>@order.OrderId</td>
+                                            <td>@_UserService.GetUserNameById(order.UserId)</td>
+                                            <td>@order.OrderSum</td>
+                                            @if (order.IsFinaly)
+                                            {
+                                                <td class="text-green">پرداخت شده</td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-red">پرداخت نشده</td>
+                                            }
+
+                                            <td>@order.CreateDate.ToShamsi()</td>
+                                            <td>
+                                                <a href="/admin/order/details/@order.OrderId" class="btn btn-primary btn-sm">
+                                                    ریز فاکتور
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card-footer py-4 shadow" style="        background-color: #263238;">
+                            <nav aria-label="...">
+                                <ul class="pagination justify-content-end mb-0">
+
+                                    @for (int i = 1; i <= Model.PageCount; i++)
+                                    {
+                                        <li class="page-item @((i==Model.CurrentPage)?"active":"")" aria-controls="dataTables-example" tabindex="0">
+                                            <a class="page-link" href="/Admin/product?PageId=@i">@i</a>
+                                        </li>
+                                    }
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

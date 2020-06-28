@@ -1,0 +1,83 @@
+﻿@model Sheta.Data.Models.Entities.User.User;
+
+@{
+    ViewData["Title"] = "EditProfile";
+    Layout = "~/Views/Shared/_UserPanel.cshtml";
+}
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" href="/panel">پنل کاربری</a>
+        </div>
+
+    </div>
+</nav>
+<!-- End Navbar -->
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-user">
+                <div class="card-header">
+                    <h5 class="card-title">اطلاعات حساب</h5>
+                </div>
+                <div class="card-body" style="float: right!important;">
+                    <form asp-action="EditProfile" method="post" enctype="multipart/form-data">
+                        <input type="hidden"asp-for="ActiveCode"/>
+                        <input type="hidden"asp-for="Password"/>
+                        <input type="hidden"asp-for="IsActive"/>
+                        <input type="hidden"asp-for="UserId"/>
+                        <input type="hidden"asp-for="isdelete"/>
+                        <input type="hidden"asp-for="RegisterDate"/>
+                        <div class="row">
+                            <div class="col-md-5 pr-1">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="UserName" class="control-label"></label>
+                                    <input disabled="" asp-for="UserName" class="form-control"/>
+                                    <input type="hidden" asp-for="UserName" class="form-control"/>
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-7 px-1">
+                                <div class="form-group">
+                                    <label asp-for="Email" class="control-label"></label>
+                                    <input disabled="" asp-for="Email" class="form-control"/>
+                                    <input type="hidden" asp-for="Email" class="form-control"/>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 pl-1">
+                                <div class="form-group">
+                                    <img style="width: 150px;" src="Images/@Model.UserAvatar"/>
+                                    <input type="hidden" asp-for="UserAvatar" class="form-control"/>
+                                    <input type="file" name="imgAvatar"/>
+
+                                </div>
+                            </div>
+                            <div class="col-md-2 pl-1">
+                                <div class="form-group">
+                                    <a href="/ChangePassword" class="btn btn-warning">تغییر کلمه عبور</></a>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 pl-1">
+                                <div class="form-group">
+                                    <input style="font-family: 'yekan'; width: 100%;" type="submit" value="ویرایش" class="btn btn-primary"/>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

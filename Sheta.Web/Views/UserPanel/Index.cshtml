@@ -1,0 +1,124 @@
+﻿@using Sheta.CoreLayer.Servises.Interface
+@using Sheta.Data.Models.Entities.User
+@model Sheta.CoreLayer.DTOs.UserInformationvViewModel;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserPanel.cshtml";
+}
+@inject IOrderService _OrderService;
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" href="/panel">پنل کاربری</a>
+        </div>
+
+    </div>
+</nav>
+<!-- End Navbar -->
+<div class="content">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card card-user">
+                <div class="image">
+                    <img src="/UserPanel/img/damir-bosnjak.jpg" alt="...">
+                </div>
+                <div class="card-body">
+                    <div class="author">
+                        <a href="#">
+                            <img class="avatar border-gray" src="/Images/@Model.UserAvatar" alt="...">
+                            <h3 class="title">@Model.UserName</h3>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <hr>
+                    <div class="button-container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-6 col-6 ml-auto">
+                                <h4 style="margin: 0;">کیف پول</h4>
+                                <h4 style="margin: 0;">@Model.Amount</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <div class="col-md-8 ml-auto mr-auto">
+            <div class="card card-upgrade">
+                <div class="card-header text-center">
+                    <h4 class="card-title">اطلاعات کاربر</h4>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <table class="table">
+
+                            <tbody>
+                            <tr>
+                                <td class="text-center">نام کاربری</td>
+                                <td class="text-center">@Model.UserName</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">ایمیل</td>
+                                <td class="text-center">@Model.Email</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">تاریخ ثبت نام</td>
+                                <td class="text-center">@Model.RegisterDate</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title" style="text-align: center !important;">محصولات خریداری شده</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled team-members">
+                        @{
+                            List<UserProduct> list = ViewBag.product as List<UserProduct>;
+                        }
+                        @foreach (var item in list )
+                        {
+                            <li>
+                                <div class="row">
+                                    <div class="col-md-5 col-5"style="margin-bottom: 15px;">
+                                        <div class="avatar">
+                                            <img src="/Images/Product/Thumb/@item.Product.ProductImageName" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-5">
+                                        <a style="float: left;" href="/product/@item.Product.ProductId"><h3>@_OrderService.GetProductTitleById(item.ProductId)</h3></a>
+                                       
+                                        <span class="text-success"><small>در دسترس</small></span>
+                                    </div>
+                                    <div class="col-md-2 col-2 text-right">
+                                        <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-download"></i></btn>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer footer-black  footer-white ">
+    <div class="container-fluid">
+        <div class="row">
+            
+            <div class="credits ml-auto">
+                <span class="copyright">
+                    © 1399 
+                    طراحی شده توسط <a href="https://amirmohammadsheta.ir">amirmohammadshet.ir</a> 
+                </span>
+            </div>
+        </div>
+    </div>
+</footer>
+

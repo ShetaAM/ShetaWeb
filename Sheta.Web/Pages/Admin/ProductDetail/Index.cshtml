@@ -1,0 +1,58 @@
+﻿@page "{id}"
+@using Sheta.CoreLayer.Servises.Interface
+@model Sheta.Web.Pages.Admin.ProductDetail.IndexModel
+@inject IProductService _ProductService;
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="main-content" id="panel">
+        @await Component.InvokeAsync("NavbarGroupViewModel")
+        <!-- Header -->
+        <hr />
+        <div class="container-fluid mt--6">
+            <!-- Dark table -->
+            <div class="row">
+                <div class="col">
+                    <div class="card bg-default shadow">
+                        <div class="card-header bg-transparent border-0">
+                            <h3 class="text-white mb-0">لیست مشخصات محصول(@_ProductService.GetProductTitleById(@Model.Productid))</h3>
+                            <a href="/admin/productdetail/createdetail/@Model.Productid" class="btn btn-success">افزودن </a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-dark table-flush">
+                                <thead class="thead-dark" style="font-size: medium!important;">
+                                <tr>
+                                    <th scope="col" class="sort" data-sort="name">عنوان مشخصه</th>
+                                    <th scope="col" class="sort" data-sort="budget">مقدار مشخصه</th>
+                                    <th scope="col" class="sort" data-sort="status">دستورات</th>
+                                </tr>
+                                </thead>
+                                <tbody class="list">
+
+                                @foreach (var detail in Model.ProductDetails)
+                                {
+                                    <tr>
+                                        <td>@detail.DetailCaption</td>
+                                        <td>@detail.DetailDec</td>
+                                        <td>
+                                            <a href="/Admin/productDetail/DeleteDetail/@detail.PdId" class="btn btn-danger btn-sm">
+                                                حذف
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                }
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer py-4 shadow" style="background-color: #263238;">
+                            <nav aria-label="...">
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

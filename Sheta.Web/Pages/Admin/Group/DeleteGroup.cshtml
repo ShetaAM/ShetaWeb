@@ -1,0 +1,38 @@
+﻿@page "{id}"
+@model Sheta.Web.Pages.Admin.Group.DeleteGroupModel
+@{
+    ViewData["Title"] = "DeleteGroup";
+    Layout = "~/Pages/Shared/Admin_Layout.cshtml";
+}
+
+    <div class="main-content" id="panel">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-user">
+                    <div class="card-header">
+                        <form method="post">
+                            <input type="hidden"asp-for="ProductGroup.GroupId" />
+                            <dl class="dl-horizontal">
+                                <dt>نام گروه : </dt>
+                                <dd>@Model.ProductGroup.GroupTitle</dd>
+                                <dd>
+                                    <div class="alert alert-danger">
+                                        <h2>هشدار</h2>
+                                        <h4>
+                                            در صورت حدف اگر گروه اصلی باشد تمام زیر گروه ها و محصولات داخل آن حذف میگردد!
+                                        </h4>
+                                    </div>
+                                </dd>
+                                <dd>
+                                    <input type="submit" value="حذف" class="btn btn-danger" />
+                                </dd>
+                            </dl>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+

@@ -1,0 +1,79 @@
+﻿@page "{id}"
+@using Sheta.Data.Models.Entities.Permission
+@model Sheta.Web.Pages.Admin.Role.EditRoleModel
+@{
+    ViewData["Title"] = "ویرایش نقش";
+    List<Permission> permissions = ViewData["p"] as List<Permission>;
+}
+
+
+<div class="main-content" id="panel">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-user">
+                <div class="card-header">
+                    <h5 class="card-title" style="font-size: 25px;">ویرایش نقش "@Model.Role.RoleTitle"</h5>
+                </div>
+                <div class="card-body" style="float: right !important;">
+
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="Role.RoleId" />
+                        <input type="hidden" asp-for="Role.isdelete" />
+                        <div class="row">
+                            <div class="col-md-6 pr-1">
+                                <div class="form-group">
+                                    <label class="control-label" for="UserName">نام نقش</label>
+                                    <input type="text" asp-for="Role.RoleTitle" class="form-control">
+                                    <span class="text-danger field-validation-valid" data-valmsg-for="UserName" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 px-1">
+                                @{
+                                    List<int> SelectedPermissions = ViewData["SelectedPermissions"] as List<int>;
+                                }
+                                <ul>
+                                    @foreach (var permission in permissions.Where(p => p.ParentId == null))
+                                    {
+                                        <li>
+                                            <input type="checkbox" name="SelectedPermission" @((SelectedPermissions.Any(p => p == permission.PermissionId) ? "checked" : "")) value="@permission.PermissionId" /> @permission.PermisionTitle
+
+                                            @if (permissions.Any(p => p.ParentId == permission.ParentId))
+                                            {
+                                                <ul>
+                                                    @foreach (var sub in permissions.Where(p => p.ParentId == permission.PermissionId))
+                                                    {
+                                                        <li>
+                                                            <input type="checkbox" name="SelectedPermission" @((SelectedPermissions.Any(p => p == sub.PermissionId) ? "checked" : "")) value="@sub.PermissionId" /> @sub.PermisionTitle
+                                                            @if (permissions.Any(p => p.ParentId == sub.ParentId))
+                                                            {
+                                                                <ul>
+
+                                                                    @foreach (var sub2 in permissions.Where(p => p.ParentId == sub.PermissionId))
+                                                                    {
+                                                                        <li>
+                                                                            <input type="checkbox" name="SelectedPermission" @((SelectedPermissions.Any(p => p == sub2.PermissionId) ? "checked" : "")) value="@sub2.PermissionId" /> @sub2.PermisionTitle
+                                                                        </li>
+                                                                    }
+                                                                </ul>
+                                                            }
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            }
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-md-12 pr-1">
+                                <div class="form-group">
+                                    <input type="submit" value="ذخیره اطلاعات" class="btn btn-success" style="width: 100%;" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Sheta.Data.Models.Entities.Product.Product>;
+@{
+    Layout = null;
+}
+
+<div class="banner-bootom-w3-agileits">
+    <div class="container">
+        <div class="col-md-5 bb-grids bb-left-agileits-w3layouts">
+            <a href="/offproducts">
+                <div class="bb-left-agileits-w3layouts-inner">
+                    <h3>تخفیف های</h3>
+                    <h4>روزانه<span>OFF%</span></h4>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 bb-grids bb-right-agileits-w3layouts">
+            @foreach (var p in Model.Take(Model.Count()/2))
+            {
+                <a href="/product/@p.ProductId">
+                    <div class="bb-right-top" style="background: url(/Images/Product/@p.ProductImageName) no-repeat 0px 0px; margin-bottom: 30px;">
+                        <h3 style="color: aqua;">@p.ProductTitle</h3>
+                        <h4 style="color: aqua;">تخفیف<span style="color: aqua;">@p.ProductDiscount %</span></h4>
+                    </div>
+                </a>
+            }
+        </div>
+        <div class="col-md-4 bb-grids bb-middle-agileits-w3layouts">
+            @foreach (var p in Model.Skip(Model.Count()/2))
+            {
+                <a href="/product/@p.ProductId">
+                    <div class="bb-middle-top" style="background: url(/Images/Product/@p.ProductImageName) no-repeat 0px 0px; margin-bottom: 30px;">
+                        <h3 style="color: aqua;">@p.ProductTitle</h3>
+                        <h4 style="color: aqua;">تخفیف<span style="color: aqua;">@p.ProductDiscount % </span></h4>
+                    </div>
+                </a>
+            }
+        </div>
+        
+       
+        <div class="clearfix"></div>
+    </div>
+</div>

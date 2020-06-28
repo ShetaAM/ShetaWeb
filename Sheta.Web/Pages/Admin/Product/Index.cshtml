@@ -1,0 +1,94 @@
+﻿@page
+@using Sheta.CoreLayer.Convertor
+@using Sheta.Data.Models.Entities.Product
+@model Sheta.Web.Pages.Admin.Product.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="main-content" id="panel">
+        @await Component.InvokeAsync("NavbarGroupViewModel")
+        <!-- Header -->
+        <hr />
+        <div class="container-fluid mt--6">
+            <!-- Dark table -->
+            <div class="row">
+                <div class="col">
+                    <div class="card bg-default shadow">
+                        <div class="card-header bg-transparent border-0">
+                            <h3 class="text-white mb-0">لیست محصولات</h3>
+                            <a href="/admin/product/createproduct" class="btn btn-success">افزودن محصول</a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-dark table-flush">
+                                <thead class="thead-dark" style="font-size: medium!important;">
+                                    <tr>
+                                        <th scope="col" class="sort" data-sort="name">تصویر</th>
+                                        <th scope="col" class="sort" data-sort="budget">نام محصول</th>
+                                        <th scope="col" class="sort" data-sort="status">قیمت</th>
+                                        <th scope="col">وضعیت</th>
+                                        <th scope="col" class="sort" data-sort="completion">تاریخ افزودن محصول</th>
+                                        <th scope="col" class="sort" data-sort="completion">تخفیف</th>
+                                        <th scope="col" class="sort" data-sort="completion">دستورات</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list">
+
+                                    @foreach (var product in Model.ProductForAdminViewModel.Products)
+                                    {
+                                        <tr>
+                                            <td><img style="width: 70px;" src="/Images/Product/Thumb/@product.ProductImageName" /></td>
+                                            <td>@product.ProductTitle</td>
+                                            <td>@product.ProductPrice</td>
+                                            @switch (product.StatusId)
+                                            {
+                                                case 1:
+                                                    <td class="text-success">موجود</td>
+                                                    break;
+                                                case 2:
+                                                    <td class="text-danger">اتمام موجودی</td>
+                                                    break;
+                                                case 3:
+                                                    <td class="text-warning">موجودی محدود</td>
+                                                    break;
+                                            }
+
+                                            <td>@product.CreateDate.ToShamsi()</td>
+                                            <td>@product.ProductDiscount %</td>
+                                            <td>
+                                                <a href="/Admin/product/editproduct/@product.ProductId" class="btn btn-warning btn-sm">
+                                                    ویرایش
+                                                </a>
+                                                <a href="/Admin/ProductDetail/@product.ProductId" class="btn btn-primary btn-sm">
+                                                    مشخصات
+                                                </a>
+                                                <a href="/Admin/product/DeleteProduct/@product.ProductId" class="btn btn-danger btn-sm">
+                                                    حذف
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card-footer py-4 shadow" style="        background-color: #263238;">
+                            <nav aria-label="...">
+                                <ul class="pagination justify-content-end mb-0">
+
+                                    @for (int i = 1; i <= Model.ProductForAdminViewModel.PageCount; i++)
+                                    {
+                                        <li class="page-item @((i==Model.ProductForAdminViewModel.CurrentPage)?"active":"")" aria-controls="dataTables-example" tabindex="0">
+                                            <a class="page-link" href="/Admin/product?PageId=@i">@i</a>
+                                        </li>
+                                    }
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

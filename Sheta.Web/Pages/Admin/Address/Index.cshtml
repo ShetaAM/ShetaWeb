@@ -1,0 +1,70 @@
+﻿@page "{id}"
+@model Sheta.Web.Pages.Admin.Address.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/Admin_Layout.cshtml";
+}
+
+    <div class="main-content" id="panel">
+        @await Component.InvokeAsync("NavbarGroupViewModel")
+        <!-- Header -->
+        <hr />
+        <div class="container-fluid mt--6">
+            <!-- Dark table -->
+            <div class="row">
+                <div class="col">
+                    <div class="card bg-default shadow">
+                        <div class="card-header bg-transparent border-0">
+                            <h3 class="text-white mb-0">آدرس های کاربر</h3>
+                            <a href="/Admin/address/createaddress/@Model.Userid" class="btn btn-success">افزودن آدرس</a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-dark table-flush">
+                                <thead class="thead-dark" style="font-size: medium!important;">
+                                <tr>
+                                    <th scope="col" class="sort" data-sort="budget">آدرس</th>
+                                    <th scope="col" class="sort" data-sort="status">استان</th>
+                                    <th scope="col" class="sort" data-sort="status">شهرستان</th>
+                                    <th scope="col" class="sort" data-sort="status">شهر</th>
+                                    <th scope="col" class="sort" data-sort="budget">کدپستی</th>
+                                    <th scope="col" class="sort" data-sort="budget">دستورات</th>
+                                </tr>
+                                </thead>
+                                <tbody class="list">
+
+                                @foreach (var address in Model.UserAddresses)
+                                {
+                                    <tr>
+                                        <td>@address.AddressId</td>
+                                        <td>@address.Address.Ostan</td>
+                                        <td>@address.Address.Shahrestan</td>
+                                        <td>@address.Address.City</td>
+                                        <td>@address.Address.CodePosty</td>
+                                        <td>
+
+                                            <form action="/UserPanel/DeleteAddressAdmin/@address.AddressId" method="post">
+                                                <a href="/admin/address/editaddress/@address.AddressId" class="btn btn-warning btn-sm">
+                                                    ویرایش
+                                                </a>
+                                                <input type="hidden" name="@address.AddressId" value="@address.AddressId" />
+                                                <button type="submit" class="btn btn-danger btn-sm">
+                                                    حدف
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer py-4 shadow" style="background-color: #263238;">
+                            <nav aria-label="...">
+                                
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

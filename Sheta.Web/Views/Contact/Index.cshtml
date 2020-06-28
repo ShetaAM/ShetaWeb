@@ -1,0 +1,60 @@
+﻿@using Sheta.CoreLayer.Servises.Interface
+@using Sheta.Data.Models.Entities.Site
+@model ContactUs;
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+@inject ISiteService _SiteService;
+@{
+    Setting setting=_SiteService.GetContactInfo();
+    Address address= _SiteService.GetManagerAdress();
+}
+
+<div class="contact">
+    <div class="container">
+        <h3>تماس با ما</h3>
+        <div class="col-md-3 col-sm-3 contact-left">
+            <div class="address">
+                <h4>آدرس</h4>
+                <h5> @address.Ostan-@address.City</h5>
+                <h5>@address.Adres</h5>
+            </div>
+            <div class="phone">
+                <h4>تلفن</h4>
+                <h5>@setting.FirstNumber</h5>
+                <h5>@setting.SecoundNumber</h5>
+            </div>
+            <div class="email">
+                <h4>email</h4>
+                <h5><a href="'mailto:'+@setting.Email">@setting.Email</a></h5>
+            </div>
+        </div>
+        @if (ViewBag.success != null)
+        {
+            <div class="alert alert-success">
+                <h3>پیام شما با موفقیت ارسال شد</h3>
+            </div>
+        }
+        <div class="col-md-9 col-sm-9 contact-right">
+            <form asp-action="Index" method="post">
+                <input type="hidden"asp-for="UserId"value=@_SiteService.GetUserIdByUsername(User.Identity.Name)/>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="text" asp-for="name" placeholder="نام و نام خانوادگی" required=" ">
+                <span asp-validation-for="name" class="text-danger"></span>
+                <input type="text" asp-for="Email" placeholder="ایمیل " required=" ">
+                <span asp-validation-for="Email" class="text-danger"></span>
+                <input type="text" asp-for="Subject" placeholder="موضوع پیام" required=" ">
+                <span asp-validation-for="Subject" class="text-danger"></span>
+                <input type="text" asp-for="Phone" placeholder="شماره موبایل" required=" "/>
+                <span asp-validation-for="Subject" class="text-danger"></span>
+                <textarea asp-for="Massage" placeholder="پیام شما" required=" "></textarea>
+                <span asp-validation-for="Massage" class="text-danger"></span>
+                <input type="submit" value="ارسال پیام">
+            </form>
+        </div>
+    </div>
+</div>
+

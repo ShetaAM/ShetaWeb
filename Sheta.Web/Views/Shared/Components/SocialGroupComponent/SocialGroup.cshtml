@@ -1,0 +1,6 @@
+﻿@model IEnumerable<Sheta.Data.Models.Entities.Site.Social>;
+
+@foreach (var s in Model)
+{
+    <a href="@s.SocialLink"><i class="fa @s.SocialIcon bac1" aria-hidden="true"></i></a>
+}

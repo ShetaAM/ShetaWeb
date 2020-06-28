@@ -1,0 +1,158 @@
+﻿@using Sheta.CoreLayer.Servises.Interface
+@model Sheta.Data.Models.Entities.Order.Order;
+@inject IUserService _UserService;
+@{
+    ViewData["Title"] = "ShowOrder";
+    Layout = "~/Views/Shared/_UserPanel.cshtml";
+
+}
+
+<nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" href="/panel">پنل کاربری</a>
+        </div>
+
+    </div>
+</nav>
+<!-- End Navbar -->
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"> سبد خرید شما</h4>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <table class="table" style="text-align: right !important;">
+
+                            @if (ViewBag.empty == true)
+                            {
+                                <div class="alert alert-warning">
+                                    <p style="text-align: center;">سبد خرید شما خالی است</p>
+                                </div>
+                            }
+                            else
+                            {
+                                <thead class=" text-primary">
+                                    <tr>
+                                        <th>محصول</th>
+                                        <th>تعداد</th>
+                                        <th>قیمت</th>
+                                        <th>جمع</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int sumOrder = Model.OrderSum;
+                                    }
+
+                                    @foreach (var item in Model.OrderDetails)
+                                    {
+                                        <tr>
+                                            <td>@item.Product.ProductTitle</td>
+                                            <td>
+                                                @item.Count
+                                            </td>
+                                            <td>
+                                                @item.Price
+                                            </td>
+                                            <td>
+                                                @((item.Count * item.Price).ToString("#,0"))
+                                            </td>
+                                            <td>
+                                                <form action="/UserPanel/DeleteOrderDetail/@item.DetailId"method="post">
+                                                    <input type="hidden" name="@item.DetailId"value="@item.DetailId"/>
+                                                    <button type="submit"class="btn btn-danger btn-sm">
+                                                        حدف از سبد خرید
+                                                    </button>
+                                                </form>
+
+                                            </td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td colspan="3" class="text-left">جمع کل</td>
+                                        <td>@sumOrder.ToString("#,0 تومان")</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1" class="text-right">
+                                            <form action="/UserPanel/UseDiscount/" method="post">
+                                                <label>کد تخفیف</label>
+                                                <input type="text" name="code" class="form-control" />
+                                                <input type="submit" class="btn btn-default " style="margin-top: 5px" value="اعمال" />
+                                            </form>
+                                            @if (ViewBag.discounttype != "")
+                                            {
+                                                switch (ViewBag.discounttype)
+                                                {
+                                                    case "success":
+                                                        {
+                                                            <div class="alert alert-success">
+                                                                <p class="text-muted">کد با موفقیت اعمال شد</p>
+                                                            </div>
+                                                            break;
+                                                        }
+                                                    case "expier":
+                                                        {
+                                                            <div class="alert alert-danger">
+                                                                <p class="text-muted">تاریخ کد به اتمام رسیده است</p>
+                                                            </div>
+                                                            break;
+                                                        }
+                                                    case "notfound":
+                                                        {
+                                                            <div class="alert alert-warning">
+                                                                <p class="text-muted">کد معتبر نیست</p>
+                                                            </div>
+                                                            break;
+                                                        }
+                                                    case "Finished":
+                                                        {
+                                                            <div class="alert alert-info">
+                                                                <p class="text-muted">کد به اتمام رسیده است</p>
+                                                            </div>
+                                                            break;
+                                                        }
+                                                    case "userused":
+                                                        {
+                                                            <div class="alert alert-info">
+                                                                <p class="text-muted">این کد قبلا توسط شما استفاده شده است</p>
+                                                            </div>
+                                                            break;
+                                                        }
+                                                }
+                                            }
+                                        </td>
+                                        <td colspan="3">
+                                            @if (_UserService.Mandehesab(User.Identity.Name) >= sumOrder)
+                                            {
+                                                <a class="btn btn-success btn-block" href="/finalyorder/@Model.OrderId">تایید فاکتور</a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-success btn-block" disabled>تایید فاکتور</a>
+                                                <div class="alert alert-danger" style="margin-top: 15px;">
+                                                    موجودی کیف پول شما کافی نمی باشد ، لطفا از طریق این
+                                                    <a href="/Wallet" class="alert-link">لینک</a>
+                                                    اقدام به شارژ حساب کنید
+                                                </div>
+                                            }
+                                            <a class="btn btn-vimeo btn-sm" href="/UserPanel/wizard">خرید پستی محصول</a>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

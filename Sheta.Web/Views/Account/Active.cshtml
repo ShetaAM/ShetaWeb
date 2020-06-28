@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewData["Title"] = "Active";
+}
+
+@if (ViewBag.isactive)
+{
+    <div class="alert-success">
+        <p>حساب شما فعال شد</p>
+    </div>
+}
+else
+{
+    <div class="alert-danger">
+        <p>عملیات ناموفق</p>
+    </div>
+}
+

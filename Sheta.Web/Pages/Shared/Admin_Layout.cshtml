@@ -1,0 +1,141 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description"
+          content="Start your development with a Dashboard for Bootstrap 4." />
+    <meta name="author" content="Creative Tim" />
+    <meta name="googlebot" content="index,follow">
+    <meta name="robots" content="noodp,noydir">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sheta-کنترل پنل</title>
+    <!-- Favicon -->
+    <link rel="icon" href="/AdminContent/img/brand/favicon.png" type="image/png" />
+    <!-- Fonts -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="/AdminContent/vendor/nucleo/css/nucleo.css"
+          type="text/css" />
+    <!-- Page plugins -->
+    <!-- Argon CSS -->
+    <link rel="stylesheet"
+          href="/AdminContent/css/argon.css?v=1.2.0"
+          type="text/css" />
+</head>
+
+<body>
+    <!-- Sidenav -->
+    <nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-white"
+         id="sidenav-main">
+        <div class="scrollbar-inner">
+            <!-- Brand -->
+            <div class="sidenav-header align-items-center">
+                <a class="navbar-brand" href="javascript:void(0)">
+                    <img src="/AdminContent/img/brand/blue.png"
+                         class="navbar-brand-img"
+                         alt="..." />
+                </a>
+            </div>
+            <div class="navbar-inner">
+                <!-- Collapse -->
+                <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+                    <!-- Nav items -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/admin/controlpanel">
+                                <i class="ni ni-tv-2 text-primary"></i>
+                                <span class="nav-link-text">پنل ادمین</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Admin/group">
+                                <i class="ni ni-bullet-list-67 text-red"></i>
+                                <span class="nav-link-text">گروه محصولات (منو)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="/Admin/user">
+                                <i class="ni ni-circle-08 text-green"></i>
+                                <span class="nav-link-text"> کاربران</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="/Admin/role">
+                                <i class="ni ni-key-25 text-yellow"></i>
+                                <span class="nav-link-text"> دسترسی</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="/Admin/ListDeleteUsers">
+                                <i class="fa fa-trash text-orange"></i>
+                                <span class="nav-link-text"> کاربران حذف شده</span>
+                            </a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Admin/brand">
+                                <i class="fa fa-flag text-gray"></i>
+                                <span class="nav-link-text">برندها</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Admin/Product">
+                                <i class="ni ni-bag-17 text-purple"></i>
+                                <span class="nav-link-text">محصولات</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Admin/discount">
+                                <i class="fa fa-percent text-dark"></i>
+                                <span class="nav-link-text">تخفیف ها</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Admin/order">
+                                <i class="ni ni-bullet-list-67 text-red"></i>
+                                <span class="nav-link-text">فاکتورها</span>
+                            </a>
+                        </li>
+
+
+
+                    </ul>
+                    <!-- Divider -->
+                    <hr class="my-3" />
+                    <!-- Heading -->
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Main content -->
+    <!-- Topnav -->
+    <!-- Header -->
+    @RenderBody()
+
+    <!-- Argon Scripts -->
+    <!-- Core -->
+
+
+    <script src="/AdminContent/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="/AdminContent/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/AdminContent/vendor/js-cookie/js.cookie.js"></script>
+    <script src="/AdminContent/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="/AdminContent/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+    <!-- Optional JS -->
+    <script src="/AdminContent/vendor/chart.js/dist/Chart.min.js"></script>
+    <script src="/AdminContent/vendor/chart.js/dist/Chart.extension.js"></script>
+    <!-- Argon JS -->
+    <script src="/AdminContent/js/argon.js?v=1.2.0"></script>
+    @RenderSection("Scripts", false)
+</body>
+</html>
+

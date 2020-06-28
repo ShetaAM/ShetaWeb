@@ -1,0 +1,197 @@
+﻿@using System.ComponentModel
+@using Sheta.CoreLayer.Servises.Interface
+@using Sheta.Data.Models.Entities.Product
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="webdesigndl.com">
+    <link rel="icon" href="/AdminContent/img/brand/favicon.png" type="image/png" />
+    <title>ShetaCom</title>
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- css -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/site/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="/site/css/style.css" type="text/css" media="all" />
+
+    <!--// css -->
+    <!-- font -->
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+
+    <script src="/site/js/jquery-1.11.1.min.js"></script>
+    <script src="/site/js/bootstrap.js"></script>
+</head>
+
+<body>
+    <div class="header-top-w3layouts">
+        <div class="container">
+            <div class="col-md-7 logo-w3">
+                <a href="/">
+                    <img src="/site/images/logo2.png" alt=" " />
+                    <h1>SHETA<span>COM</span></h1>
+                </a>
+            </div>
+
+            <div class="col-md-5 phone-w3l">
+                <ul>
+                    <li> <a href="/"style="color: black;"> صفحه اصلی </a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a href="#">@User.Identity.Name</a></li>
+                        <li><a href="/panel"> پنل کاربری </a></li>
+                        <li><a href="/logout"> خروج از حساب کاربری </a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/login">ورود</a></li>
+                        <li><a href="/register">ثبت نام</a></li>
+                    }
+
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="header-bottom-w3ls">
+        <div class="container">
+            <div class="col-md-7 navigation-agileits">
+                <nav class="navbar navbar-default">
+                    <div class="navbar-header nav_2">
+                        <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    @await Component.InvokeAsync("CourseGroupComponent")
+                </nav>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $(".dropdown").hover(
+                        function () {
+                            $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                            $(this).toggleClass('open');
+                        },
+                        function () {
+                            $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                            $(this).toggleClass('open');
+                        }
+                    );
+                });
+            </script>
+            <div class="col-md-3 search-agileinfo">
+                <div class="row">
+                    <form  id="filter" method="get">
+                        <div class="col-md-8"style="padding: 3px !important;"><input type="text" name="Filter" class="form-control text-center" placeholder="جستجوی محصول" required=""></div>
+                        <div class="col-md-4"style="margin-top: 15px; padding: 5px !important;"> <a><i class="fa fa-search" style="color: aqua;"></i></a></div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-1 cart-wthree">
+                <div class="cart">
+
+                    <button class="w3view-cart" type="submit" name="submit" value=""><a href="/showorder"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a></button>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    @RenderBody()
+    <!-- newsletter -->
+    <div class="newsletter">
+        <div class="container">
+            <div class="col-md-6 w3agile_newsletter_left">
+                <h3>خبرنامه</h3>
+            </div>
+            <div class="col-md-6 w3agile_newsletter_right">
+                <form action="#" method="post">
+                    <input type="email" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+                    <input type="submit" value="Subscribe" />
+                </form>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <!-- //newsletter -->
+
+    <div class="footer">
+        <div class="container">
+            <div class="col-md-3 footer-grids fgd1">
+                <a style="text-align: right;" href="/">
+                    <img src="/site/images/logo2.png" alt=" " />
+                    <h3>SHETA<span>COM</span></h3>
+                </a>
+                <ul>
+                    @await Component.InvokeAsync("AddressGroupComponent")
+
+                    @await Component.InvokeAsync("SocialGroupComponent")
+                </ul>
+            </div>
+            <div class="col-md-3 footer-grids fgd2">
+                <h4>اطلاعات</h4>
+                <ul>
+                    <li><a href="/aboutus">درباره ما</a></li>
+                    <li><a href="/contactus">تماس با ما</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 footer-grids fgd3">
+                <h4>دسته بندی</h4>
+                @inject ISiteService _SiteService;
+                @{
+                    List<ProductGroup> groups = _SiteService.GetGroupsForFooter();
+                }
+                <ul>
+                    @foreach (var g in groups)
+                    {
+                        <li><a href="/product/index/@g.GroupId">@g.GroupTitle</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="col-md-3 footer-grids fgd4">
+                <h4>حساب کاربری</h4>
+                <ul>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a href="/panel">پنل کاربری</a></li>
+                        <li><a href="/logout">خروج از حساب کاربری </a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/login">ورود</a></li>
+                        <li><a href="/register">ثبت نام</a></li>
+                        <li><a href="/forgetpassword">فراموشی کلمه عبور </a></li>
+                    }
+                    
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+            <p class="copy-right">© 1399 .تمام حقوق مادی و معنوی این سایت متعلق به <a href="http://w3layouts.com"> SHETAcom.</a> مبیاشد </p>
+            <p style="text-align: center">طراحی شده توسط <a href="https://amirmohammadsheta.ir"> amirmohammadsheta.ir.</a></p>
+        </div>
+    </div>
+    <!-- cart-js -->
+    <script src="/site/js/minicart.js"></script>
+    <script>
+        w3ls1.render();
+
+        w3ls1.cart.on('w3sb1_checkout', function (evt) {
+            var items, len, i;
+
+            if (this.subtotal() > 0) {
+                items = this.items();
+
+                for (i = 0, len = items.length; i < len; i++) {
+                    items[i].set('shipping', 0);
+                    items[i].set('shipping2', 0);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

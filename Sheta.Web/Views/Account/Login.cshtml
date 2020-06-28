@@ -1,0 +1,51 @@
+﻿@model Sheta.CoreLayer.DTOs.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+@if (ViewBag.issuccess != null)
+{
+    <div class="alert-success">
+        <h3>وارد شدید</h3>
+    </div>
+}
+<div class="login">
+
+    <div class="main-agileits">
+        <div class="form-w3agile">
+            <h3>ورود به سایت</h3>
+            <form asp-action="Login">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="key">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <input asp-for="UserName" placeholder="نام کاربری">
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="key">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <input type="password" asp-for="Password" placeholder="کلمه عبور">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <div class="clearfix"></div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <i class="fa fa-lock" aria-hidden="true"></i>
+                    <label asp-for="RememberMe"></label>
+                    <input type="checkbox" asp-for="RememberMe" style="width: 25px!important;" />
+                    <span asp-validation-for="RememberMe" class="text-danger"></span>
+                    <div class="clearfix"></div>
+                </div>
+                <input type="submit" value="ورود">
+            </form>
+        </div>
+        <div class="forg">
+            <a href="/forgetpassword">رمز عبور خود را فراموش کرده اید؟</a>
+            <a href="/register" >ثبت نام</a>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+
+
+

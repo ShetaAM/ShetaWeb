@@ -1,0 +1,152 @@
+﻿@page "{id}"
+@model Sheta.Web.Pages.Admin.Product.EditProductModel
+@{
+    ViewData["Title"] = "EditProduct";
+}
+
+<div class="main-content" id="panel">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-user">
+                <div class="card-header">
+                    <h5 class="card-title" style="font-size: 25px;">افزودن محصول جدید</h5>
+                </div>
+                <div class="card-body" style="float: right !important;">
+
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <input type="hidden" asp-for="Product.ProductId">
+                            <input type="hidden" asp-for="Product.CreateDate">
+                            <input type="hidden" asp-for="Product.ProductImageName">
+                            <div class="col-md-12 pr-1">
+                                <div class="form-group">
+                                    <label class="control-label" for="UserName">نام محصول</label>
+                                    <input type="text" asp-for="Product.ProductTitle" class="form-control">
+                                    <span asp-validation-for="Product.ProductTitle"></span>
+                                    <span class="text-danger field-validation-valid" data-valmsg-for="ProductTitle" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 px-1">
+                                <div class="form-group">
+                                    <label>گروه اصلی</label>
+                                    <select class="form-control" asp-for="Product.GroupId" asp-items="@(ViewData["Groups"] as SelectList)"></select>
+                                    <span asp-validation-for="Product.GroupId"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 pr-2">
+                                <div class="form-group">
+                                    <label>زیر گروه</label>
+                                    <select class="form-control" asp-for="Product.SubGroup" asp-items="@(ViewData["SubGroups"] as SelectList)"></select>
+                                    <span asp-validation-for="Product.SubGroup"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 px-1">
+                                <div class="form-group">
+                                    <label>برند</label>
+                                    <select class="form-control" asp-for="Product.BrandId" asp-items="@(ViewData["Brands"] as SelectList)"></select>
+                                    <span asp-validation-for="Product.BrandId"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 pr-1">
+                                <div class="form-group">
+                                    <label>وضعیت محصول</label>
+                                    <select class="form-control" asp-for="Product.StatusId" asp-items="@(ViewData["Status"] as SelectList)"></select>
+                                    <span asp-validation-for="Product.StatusId"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 pr-1">
+                                <div class="form-group">
+                                    <label>قیمت محصول</label>
+                                    <input type="number" class="form-control" asp-for="Product.ProductPrice" />
+                                    <span asp-validation-for="Product.ProductPrice"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 pr-1">
+                                <div class="form-group">
+                                    <label>تخفیف محصول</label>
+                                    <input type="number" class="form-control" asp-for="Product.ProductDiscount" />
+                                    <span asp-validation-for="Product.ProductDiscount"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 pr-1">
+                                <div class="form-group">
+                                    <label>توضیحات محصول</label>
+                                    <textarea class="form-control" asp-for="Product.ProductDescription" rows="10"></textarea>
+                                    <span asp-validation-for="Product.ProductDescription"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 pr-1">
+                                <img id="imgProduct" class="thumbnail" src="/Images/Product/Thumb/@Model.Product.ProductImageName" />
+                                <div class="form-group">
+
+                                    <label>انتخاب تصویر</label>
+                                    <input type="file" name="imgProductUp" id="imgProductUp">
+                                </div>
+                            </div>
+                            <div class="col-md-6 pr-1">
+                                <div class="form-group">
+                                    <label>کلمات کلیدی دوره</label>
+                                    <input type="text" asp-for="Product.Tags" class="form-control">
+                                    <p class="help-block">کلمات را با - جدا کنید</p>
+                                    <span asp-validation-for="Product.Tags"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 pl-1">
+                                <div class="form-group">
+                                    <input type="submit" value="ذخیره اطلاعات" class="btn btn-success" style="width: 100%;" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $("#Product_GroupId").change(function () {
+            $("#Product_SubGroup").empty();
+            $.getJSON("/sub/GetSubGroups/" + $("#Product_GroupId :selected").val(),
+                function (data) {
+
+                    $.each(data,
+                        function () {
+                            $("#Product_SubGroup").append('<option value=' + this.value + '>' + this.text + '</option>');
+
+                        });
+
+                });
+        });
+
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgProduct').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgProductUp").change(function () {
+            readURL(this);
+        });
+    </script>
+
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script>
+
+        CKEDITOR.replace('Product_ProductDescription', {
+            customConfig: '/AdminContent/js/config.js'
+        });
+
+    </script>
+}
+

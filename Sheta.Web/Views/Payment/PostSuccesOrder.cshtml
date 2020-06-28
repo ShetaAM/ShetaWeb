@@ -1,0 +1,64 @@
+﻿@using Sheta.CoreLayer.Convertor
+@model Sheta.CoreLayer.DTOs.OrderInfoDTO;
+@{
+    ViewData["Title"] = "PostSuccesOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row" style="margin:25px 100px 25px 100px ;">
+    <div class="col-md-12">
+        <table class="table sss" style="text-align: right !important;">
+            <thead class=" text-primary" style="background-color: cyan;">
+                <tr>
+                    <th>کد فاکتور</th>
+                    <th style="width: auto;">تاریخ</th>
+                    <th>سفارشات</th>
+                    <th>هزینه</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.OrderId</td>
+                    <td>
+                       @Model.CreateDate.ToShamsi()
+                    </td>
+                    <td>
+                        <table class="table sss" style="text-align: right !important;">
+                            <thead class=" text-primary">
+                                <tr>
+                                    <th>محصول</th>
+                                    <th>تعداد</th>
+                                    <th>قیمت</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               @foreach (var order in Model.ordrsDetails)
+                               {
+                                   <tr>
+                                       <td>@order.Product.ProductTitle</td>
+                                       <td>
+                                           @order.Count
+                                       </td>
+                                       <td>
+                                           @order.Price
+                                       </td>
+                                   </tr>
+                               }
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <dl>
+                            <dd style="float: right; text-align: right; padding-left: 5px;">جمع کل:</dd>
+                            <dt>@Model.OrderSum</dt>
+                            <dd  style="float: right; text-align: right;padding-left: 5px;">هزینه پست: </dd>
+                            <dt>15000</dt>
+                            <dd style="float: right; text-align: right;padding-left: 5px;">وضعیت پرداخت:</dd>
+                            <dt>@Model.PostType<dt>
+                        </dl>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

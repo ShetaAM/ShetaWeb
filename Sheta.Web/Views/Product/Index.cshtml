@@ -1,0 +1,117 @@
+﻿@using Microsoft.EntityFrameworkCore.Query.Internal
+@using Sheta.CoreLayer.DTOs
+@model IEnumerable<Sheta.CoreLayer.DTOs.ShowProductViewModel>
+
+@{
+    ViewData["Title"] = "Login";
+}
+<form id="formFilter" asp-action="Index" method="get">
+    <div class="content">
+
+
+        <div class="container">
+            <div class="col-md-4 w3ls_dresses_grid_left">
+                <div class="w3ls_dresses_grid_left_grid">
+                    <h3>فیلتر بر اساس محصول</h3>
+                    <div class="w3ls_dresses_grid_left_grid_sub">
+                        <div class="ecommerce_dres-type">
+                            @{
+                                List<string> typys =new List<string>()
+                                {
+                                    "all",
+                                    "buy",
+                                    "free"
+                                };
+                            }
+                            <ul>
+                                @{
+                                    string type = ViewBag.type;
+                                    string orderby = ViewBag.orderby;
+                                }
+                                <li>
+
+                                    <input onchange="changeGroupc()" class="btn btn-danger" name="Type" @((type=="all" ? "checked":"")) value="all" type="radio">
+                                    <label for="available-filter-1"> همه </label>
+                                </li>
+                                <li>
+
+                                    <input onchange="changeGroup()" name="Type" @((type=="buy" ? "checked":"")) value="buy" type="radio">
+                                    <label for="available-filter-2"> خریدنی </label>
+                                </li>
+                                <li>
+
+                                    <input onchange="changeGroup()" name="Type" @((type=="free" ? "checked":"")) value="free" type="radio">
+                                    <label for="available-filter-3"> رایگان </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="w3ls_dresses_grid_left_grid">
+                    <h3>مرتب سازی</h3>
+                    <div class="w3ls_dresses_grid_left_grid_sub">
+                        <div class="ecommerce_color">
+                            <ul>
+                                <li>
+                                    <input onchange="changeGroup()" class="btn btn-danger" id="available-filter-1" name="orderBy" @((orderby=="date" ? "checked":"")) value="date" checked="" type="radio">
+                                    <label for="available-filter-1"> تاریخ انتشار </label>
+                                </li>
+                                <li>
+                                    <input onchange="changeGroup()" id="available-filter-2" name="orderBy" @((orderby=="price" ? "checked":"")) value="price" type="radio">
+                                    <label for="available-filter-2"> قیمت محصول </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-md-8 col-sm-8 women-dresses">
+                <div class="women-set1">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-4 top-product-grids tp1 animated wow slideInUp" data-wow-delay=".5s">
+                            <a href="/product/@item.ProductId">
+                                <div class="product-img">
+                                    <img style="height: 180px;" src="/images/Product/@item.ProductImage" alt="" />
+                                    <div class="p-mask">
+                                        <a href="/product/@item.ProductId" class="w3ls-cart pw3ls-cart"><h5 style="color: blanchedalmond; text-align: center !important;">جزئیات محصول</h5></a>
+
+                                    </div>
+                                </div>
+                            </a>
+
+                            <h4>@item.ProductTitle</h4>
+                            @if (item.ProductPrice == 0)
+                            {
+                                <h5>رایگان</h5>
+                            }
+                            else
+                            {
+                                if (item.ProductDiscount != 0)
+                                {
+                                    <h5>@item.ProductPrice.ToString("#,0 تومان")  <span style="font-size: 13px; color: green;">@item.ProductDiscount %</span></h5>
+                                }
+                                else
+                                {
+                                    <h5>@item.ProductPrice.ToString("#,0 تومان")</h5>
+                                }
+
+                            }
+
+                            <hr />
+                        </div>
+                    }
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+<script>
+    function changeGroup() {
+        $("#formFilter").submit();
+    }
+</script>

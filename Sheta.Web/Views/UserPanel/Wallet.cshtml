@@ -1,0 +1,88 @@
+﻿@using Sheta.CoreLayer.DTOs
+@model ChargeViewModel
+@{
+    ViewData["Title"] = "Wallet";
+    Layout = "~/Views/Shared/_UserPanel.cshtml";
+}
+
+@{
+    List<WalletViewModel> list = ViewBag.wallet as List<WalletViewModel>;
+}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <a class="navbar-brand" href="/panel">پنل کاربری</a>
+        </div>
+
+    </div>
+</nav>
+<!-- End Navbar -->
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"> کیف پول</h4>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <form asp-action="Wallet" method="post">
+                            <div class="row">
+                                <div class="col-md-10 pr-1">
+                                    <div class="form-group">
+                                        <span class="input-group-addon" id="username"></span>
+                                        <input style="font-family: 'yekan'; width: 100%!important;" type="number" class="form-control" asp-for="Amount" placeholder="مبلغ به تومان">
+                                    </div>
+                                </div>
+                                <div class="col-md-2 pr-1">
+                                    <button style="font-family: 'yekan';" class="btn btn-success"> شارژ کیف پول </button>
+                                </div>
+                            </div>
+
+                        </form>
+                        <table class="table" style="text-align: right !important;">
+                            <thead class=" text-primary">
+                                <tr>
+                                    <th>مبلغ</th>
+                                    <th>تاریخ</th>
+                                    <th>نوع تراکنش</th>
+                                    <th>شرح</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in list)
+                                {
+                                    <tr>
+                                        <td>@item.Amount.ToString("#,0 تومان")</td>
+                                        <td>
+                                            @item.CreateDate
+                                        </td>
+                                        <td>
+                                            @if (item.TypeId == 1)
+                                            {
+                                                <p class="text-success">واریز به حساب</p>
+                                            }
+                                            else if (item.TypeId == 2)
+                                            {
+                                                <p class="text-danger">برداشت از حساب</p>
+                                            }
+                                            else if (item.TypeId == 3)
+                                            {
+                                                <p style="color: blue;">پرداخت اینترنتی</p>
+                                            }
+                                        </td>
+                                        <td>
+                                            @item.Description
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

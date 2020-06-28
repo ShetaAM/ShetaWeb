@@ -1,0 +1,46 @@
+﻿@page "{id}"
+@model Sheta.Web.Pages.Admin.Group.EditGroupModel
+@{
+    ViewData["Title"] = "EditGroup";
+}
+
+
+<div class="main-content" id="panel">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-user">
+                <div class="card-header">
+                    <h5 class="card-title" style="font-size: 25px;">ویرایش گروه </h5>
+                </div>
+                <div class="card-body" style="float: right !important;">
+
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6 pr-1">
+                                <input type="hidden" asp-for="ProductGroup.GroupId"/>
+                                <div class="form-group">
+                                    <label>نام گروه(منو)</label>
+                                    <input type="text" asp-for="ProductGroup.GroupTitle" class="form-control">
+                                    <span asp-validation-for="ProductGroup.GroupTitle"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 px-1">
+                                <div class="form-group">
+                                    <label>گروه اصلی</label>
+                                    <select class="form-control" asp-for="ProductGroup.ParentId" asp-items="@(ViewData["BaseGroup"] as SelectList)"></select>
+                                    <span asp-validation-for="ProductGroup.ParentId"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 pr-1">
+                                <div class="form-group">
+                                    <input type="submit" value="ویرایش اطلاعات" class="btn btn-success" style="width: 100%;" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

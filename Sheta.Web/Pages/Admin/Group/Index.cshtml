@@ -1,0 +1,83 @@
+﻿@page
+@using Sheta.CoreLayer.Servises
+@using Sheta.CoreLayer.Servises.Interface
+@model Sheta.Web.Pages.Admin.Group.IndexModel
+@inject IProductService _ProductService
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+    <div class="main-content" id="panel">
+        @await Component.InvokeAsync("NavbarGroupViewModel")
+        <!-- Header -->
+        <hr />
+        <div class="container-fluid mt--6">
+            <!-- Dark table -->
+            <div class="row">
+                <div class="col">
+                    <div class="card bg-default shadow">
+                        <div class="card-header bg-transparent border-0">
+                            <h3 class="text-white mb-0">لیست گروه ها </h3>
+                            <a href="/admin/group/creategroup" class="btn btn-success">افزودن گروه</a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-dark table-flush">
+                                <thead class="thead-dark" style="font-size: medium!important;">
+                                    <tr>
+                                        <th scope="col" class="sort" data-sort="name">عنوان گروه</th>
+                                        <th scope="col" class="sort" data-sort="budget">گروه اصلی</th>
+                                        <th scope="col" class="sort" data-sort="status">دستورات</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list">
+
+                                    @foreach (var p in Model.ProductGroupForAdminModel.ProductGroups)
+                                    {
+                                        <tr>
+                                            <td>@p.GroupTitle</td>
+                                            @if (p.ParentId == null)
+                                            {
+                                                <td style="background-color:#63ff40;">
+                                                    <p>گروه اصلی است</p>
+                                                </td>
+                                            }
+                                            else
+                                            {
+
+                                                <td> @_ProductService.GetGroupTitleByParnetId(p.ParentId)</td>
+                                            }
+
+                                            <td>
+                                                <a href="/Admin/group/Editgroup/@p.GroupId" class="btn btn-warning btn-sm">
+                                                    ویرایش
+                                                </a>
+                                                <a href="/Admin/group/deleteGroup/@p.GroupId" class="btn btn-danger btn-sm">
+                                                    حذف
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer py-4 shadow" style="        background-color: #263238;">
+                            <nav aria-label="...">
+                                <ul class="pagination justify-content-end mb-0">
+
+                                    @for (int i = 1; i <= Model.ProductGroupForAdminModel.PageCount; i++)
+                                    {
+                                        <li class="page-item @((i==Model.ProductGroupForAdminModel.CurrentPage)?"active":"")" aria-controls="dataTables-example" tabindex="0">
+                                            <a class="page-link" href="/Admin/product?PageId=@i">@i</a>
+                                        </li>
+                                    }
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

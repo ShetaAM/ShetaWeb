@@ -1,0 +1,14 @@
+﻿@model Sheta.CoreLayer.DTOs.ShowProductViewModel
+@{
+    ViewData["Title"] = "_ShowProduct";
+}
+
+<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 term-col">
+    <article>
+        <a href="" class="img-layer"><img style="height: 200px; width: 280px;" src="/Images/Product/@Model.ProductImage"></a>
+        <h2 style="margin: 0 !important;"><a href=""> @Model.ProductTitle </a></h2>
+        <span> @((Model.ProductPrice==0)?"رایگان":Model.ProductPrice.ToString("#,0")) </span>
+    </article>
+    
+</div>
+<!-- /col -->

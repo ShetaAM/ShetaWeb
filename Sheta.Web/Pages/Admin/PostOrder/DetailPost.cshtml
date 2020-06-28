@@ -1,0 +1,122 @@
+﻿@page "{id}"
+@using Sheta.CoreLayer.Convertor
+@using Sheta.CoreLayer.Servises.Interface
+@model Sheta.Web.Pages.Admin.PostOrder.DetailPostModel
+@{
+    ViewData["Title"] = "DetailPost";
+    Layout = "~/Pages/Shared/Admin_Layout.cshtml";
+}
+
+<div class="main-content" id="panel">
+    <hr />
+    <div class="container-fluid mt--6">
+        <!-- Dark table -->
+        <div class="row">
+            <div class="col">
+                <div class="card bg-default shadow">
+                    <div class="card-header bg-transparent border-0">
+                        <h3 class="text-white mb-0">جزئیات فاکتور</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-dark table-flush">
+                            <thead class="thead-dark" style="font-size: medium!important;">
+                                <tr>
+                                    <th>کد فاکتور</th>
+                                    <th style="width: auto;">تاریخ</th>
+                                    <th>سفارشات</th>
+                                    <th>هزینه</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style=" white-space: inherit;">@Model.OrderPost.Orders.OrderId</td>
+                                    <td style=" white-space: inherit;">
+                                        @Model.OrderPost.Orders.CreateDate.ToShamsi()
+                                    </td>
+                                    <td style=" white-space: inherit;">
+                                        <table class="table align-items-center table-dark table-flush">
+                                            <thead class="thead-dark" style="font-size: medium!important;">
+                                                <tr>
+                                                    <th>محصول</th>
+                                                    <th>تعداد</th>
+                                                    <th>قیمت</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @inject ISiteService _SiteService;
+                                                @foreach (var order in _SiteService.GetOrderDetailsForPostOrder(Model.OrderPost.OrderId))
+                                                {
+                                                    <tr>
+                                                        <td style=" white-space: inherit;"><a href="/Admin/Product?filter=@order.Product.ProductTitle">@order.Product.ProductTitle</a></td>
+                                                        <td style=" white-space: inherit;">@order.Count</td>
+                                                        <td style=" white-space: inherit;">@order.Price</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td style="white-space: inherit;">
+                                        <h4 style="color: white;">جمع کل: <span>@Model.OrderPost.Orders.OrderSum <small>تومان</small></span></h4>
+                                        <h4 style="color: white;">پست: <span>@_SiteService.GetPostMoney() <small>تومان</small></span></h4>
+                                        <h4 style="color: white;">پرداخت: <span>@Model.OrderPost.OrderPostType.TypeTitle</span></h4>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table align-items-center table-dark table-flush">
+                            <thead class="thead-dark" style="font-size: medium!important;">
+                                <tr>
+                                    <th>آدرس</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style=" white-space: inherit;">@Model.OrderPost.Address.Adres</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table align-items-center table-dark table-flush">
+                            <thead class="thead-dark" style="font-size: medium!important;">
+                            <tr>
+                                <th>استان</th>
+                                <th>شهرستان</th>
+                                <th>شهر</th>
+                                <th>کدپستی</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td style=" white-space: inherit;">@Model.OrderPost.Address.Ostan</td>
+                                <td style=" white-space: inherit;">@Model.OrderPost.Address.Shahrestan</td>
+                                <td style=" white-space: inherit;">@Model.OrderPost.Address.City</td>
+                                <td style=" white-space: inherit;">@Model.OrderPost.Address.CodePosty</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table class="table align-items-center table-dark table-flush">
+                            <thead class="thead-dark" style="font-size: medium!important;">
+                            <tr>
+                                <th>نام کاربری</th>
+                                <th>ایمیل</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td style=" white-space: inherit;">@Model.OrderPost.Orders.User.UserName</td>
+                                <td style=" white-space: inherit;">@Model.OrderPost.Orders.User.Email</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card-footer py-4 shadow" style="background-color: #263238;">
+                        <nav aria-label="...">
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

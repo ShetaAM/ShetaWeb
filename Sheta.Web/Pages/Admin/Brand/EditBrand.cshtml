@@ -1,0 +1,48 @@
+﻿@page "{id}"
+@model Sheta.Web.Pages.Admin.Brand.EditBrandModel
+@{
+    ViewData["Title"] = "EditBrand";
+    Layout = "~/Pages/Shared/Admin_Layout.cshtml";
+}
+
+<div class="main-content" id="panel">
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-user">
+            <div class="card-header">
+                <h5 class="card-title" style="font-size: 25px;">افزودن محصول جدید</h5>
+            </div>
+            <div class="card-body" style="float: right !important;">
+
+                <form method="post" enctype="multipart/form-data">
+                    <input type="hidden"asp-for="Brand.BrandId"/>
+                    <input type="hidden"asp-for="Brand.BrandImage"/>
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                                <label class="control-label" for="UserName">نام برند</label>
+                                <input type="text" asp-for="Brand.BrandTitle" class="form-control">
+                                <span asp-validation-for="Brand.BrandTitle"></span>
+                                <span class="text-danger field-validation-valid" data-valmsg-for="ProductTitle" data-valmsg-replace="true"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                                <img src="/Images/Brand/@Model.Brand.BrandImage"/>
+                                <label>انتخاب تصویر</label>
+                                <input type="file" name="imgbrand" id="imgbrand">
+                            </div>
+                        </div>
+                        <div class="col-md-12 pl-1">
+                            <div class="form-group">
+                                <input type="submit" value="ذخیره اطلاعات" class="btn btn-success" style="width: 100%;"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+

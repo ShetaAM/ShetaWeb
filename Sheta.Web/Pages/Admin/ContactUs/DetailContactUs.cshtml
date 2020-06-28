@@ -1,0 +1,57 @@
+﻿@page
+@model Sheta.Web.Pages.Admin.ContactUs.DetailContactUsModel
+@{
+    ViewData["Title"] = "DetailContactUs";
+    Layout = "~/Pages/Shared/Admin_Layout.cshtml";
+}
+
+    <div class="main-content" id="panel">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-user">
+                    <div class="card-header">
+                        <h5 class="card-title" style="font-size: 25px;">جزئیات تماس</h5>
+                    </div>
+                    <div class="card-body" style="float: right !important;">
+
+                        <form>
+                            <input type="hidden" asp-for="Tamas.UserId" />
+                            <input type="hidden" asp-for="Tamas.TamasId" />
+                            <div class="row">
+                                <div class="col-md-4 pr-1">
+                                    <div class="form-group">
+                                        <label class="control-label" for="UserName">نام</label>
+                                        <input disabled="" type="text" asp-for="Tamas.name" class="form-control">
+                                        <span class="text-danger field-validation-valid" data-valmsg-for="UserName" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 px-1">
+                                    <div class="form-group">
+                                        <label class="control-label" for="Email">ایمیل</label>
+                                        <input disabled="" type="text" asp-for="Tamas.Email" class="form-control">
+                                        <span class="text-danger field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 px-1">
+                                    <div class="form-group">
+                                        <label class="control-label" for="Email">موبایل</label>
+                                        <input disabled="" type="text" asp-for="Tamas.Phone" class="form-control">
+                                        <span class="text-danger field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 px-1">
+                                    <div class="form-group">
+                                        <label class="control-label" for="Email">پیام</label>
+                                        <textarea disabled="" asp-for="Tamas.Massage" class="form-control"></textarea>
+                                        <span class="text-danger field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

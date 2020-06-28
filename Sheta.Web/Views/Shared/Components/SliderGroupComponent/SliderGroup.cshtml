@@ -1,0 +1,15 @@
+﻿@model Sheta.Data.Models.Entities.Site.Slider;
+@{
+    Layout = null;
+}
+
+<div class="banner-agile" style="background: url(/Site/images/@Model.SliderImage) no-repeat 0px 0px;">
+    <div class="container">
+        <h2>@Model.SliderTitle</h2>
+        <h3>SHETA <span>COM</span></h3>
+        @if (Model.SliderLink != null)
+        {
+            <a href="@Model.SliderLink">جزئیات بیشتر</a>
+        }
+    </div>
+</div>

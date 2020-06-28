@@ -1,0 +1,64 @@
+﻿@page "{id}"
+@using Sheta.CoreLayer.Convertor
+@model Sheta.Web.Pages.Admin.Discount.EditDiscountModel
+@{
+    ViewData["Title"] = "EditDiscount";
+    Layout = "~/Pages/Shared/Admin_Layout.cshtml";
+}
+
+    <div class="main-content" id="panel">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-user">
+                    <div class="card-header">
+                        <h5 class="card-title" style="font-size: 25px;">افزودن تخفیف جدید</h5>
+                    </div>
+                    <div class="card-body" style="float: right !important;">
+
+                        <form method="post" enctype="multipart/form-data">
+                            <input type="hidden"asp-for="Discount.DiscountId"/>
+                            <div class="row">
+                                <div class="col-md-6 pr-1">
+                                    <div class="form-group">
+                                        <label>کد تخفیف </label>
+                                        <input type="text" asp-for="Discount.DiscountCode" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 px-1">
+                                    <div class="form-group">
+                                        <label>درصد کد تخفیف </label>
+                                        <input type="number" asp-for="Discount.DiscountPersent" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 px-1">
+                                    <div class="form-group">
+                                        <label>تاریخ شروع(مانند:1399/03/03) </label>
+                                        <input type="text" class="form-control" name="stDate"value="@((Model.Discount.StartDate!=null)?Model.Discount.StartDate.Value.ToShamsi():"")" >
+                                    </div>
+                                </div>
+                                <div class="col-md-6 px-1">
+                                    <div class="form-group">
+                                        <label>تاریخ پایان(مانند:1399/03/03)</label>
+                                        <input type="text" class="form-control" name="edDate" value="@((Model.Discount.EndTime!=null)?Model.Discount.EndTime.Value.ToShamsi():"")">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 px-1">
+                                    <div class="form-group">
+                                        <label>تعداد </label>
+                                        <input type="number" asp-for="Discount.UsableCount" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 pr-1">
+                                    <div class="form-group">
+                                        <input type="submit" value="ذخیره اطلاعات" class="btn btn-success" style="width: 100%;"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

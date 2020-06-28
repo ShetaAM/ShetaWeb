@@ -1,0 +1,129 @@
+﻿@using Sheta.CoreLayer.Servises.Interface
+@model Sheta.CoreLayer.DTOs.ProductViewModel;
+@{
+    ViewData["Title"] = "ShowProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@inject IProductService _ProductService;
+<div class="products">
+    <div class="container">
+        <div class="single-page">
+            <div class="single-page-row" id="detail-21">
+                <div class="col-md-6 single-top-left">
+                    <div class="flexslider">
+                        <ol class="flex-control-nav ">
+                            <img src="/Images/Product/@Model.Product.ProductImageName" class="" draggable="false">
+                        </ol>
+                    </div>
+                </div>
+                <div class="col-md-6 single-top-right">
+                    <h3 class="item_name">@Model.Product.ProductTitle</h3>
+                    <p>
+                        دسته بندی/برنامه نویسی وب/انگولار
+                    </p>
+                    <div class="single-rating">
+
+                    </div>
+                    <div class="single-price">
+                        <ul>
+                            @{
+                                int Takhfif = _ProductService.GetOffFromProduct(Model.Product.ProductId, Model.Product.ProductPrice, Model.Product.ProductDiscount);
+                            }
+                            @if (Model.Product.ProductDiscount != 0)
+                            {
+                                <li>@Takhfif.ToString("#,0 تومان")</li>
+                                <li><span class="w3off">@Model.Product.ProductDiscount% تخفیف</span></li>
+                                <li><del>@Model.Product.ProductPrice.ToString("#,0 تومان") تومان</del></li>
+                            }
+
+                        </ul>
+
+                    </div>
+                    <p class="single-price-text">
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
+                    </p>
+                    @if (User.Identity.IsAuthenticated && @Model.Product.StatusId == 1)
+                    {
+                        <a href="/order/@Model.Product.ProductId" class="btn btn-primary">افزودن به سبد خرید</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-danger disabled">
+                            افزودن به سبد خرید
+                        </a>
+                        @if(Model.Product.StatusId==2)
+                        {
+                            <p class="text-danger">اتمام موجودی</p>
+                        }
+                    }
+
+                    @if (_ProductService.IsProductForUser(User.Identity.Name,Model.Product.ProductId))
+                    {
+                        <p class="alert alert-info">شما قبلا این محصول را خریداری کرده اید!</p>
+                    }
+
+
+                    <button class="w3ls-cart w3ls-cart-like">
+                        <i class="fa fa-heart-o" aria-hidden="true"></i> افزودن به علاقه مندی
+                    </button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <!-- دررباره محصول -->
+        <div class="collpse tabs">
+            <h3 class="w3ls-title">درباره محصول</h3>
+            <div class="panel-group collpse" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a class="pa_italic" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <h4>توضیحات<i class="fa fa-file-text-o fa-icon" aria-hidden="true"></i></h4>
+                                <span class="fa fa-angle-down fa-arrow" aria-hidden="true"></span>
+                                <i class="fa fa-angle-up fa-arrow" aria-hidden="true"></i>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            @Html.Raw(Model.Product.ProductDescription)
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default" style="width: 40%; margin-right: 30%;">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a class="collapsed pa_italic" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <h4>مشخصات<i class="fa fa-file-text-o fa-icon" aria-hidden="true"></i></h4>
+                                <span class="fa fa-angle-down fa-arrow" aria-hidden="true"></span>
+                                <i class="fa fa-angle-up fa-arrow" aria-hidden="true"></i>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            @foreach (var detail in Model.ProductDetails)
+                            {
+                                <dl class="text-center">
+
+                                    <dt class="col-md-5">@Html.Raw(detail.DetailCaption)</dt>
+                                    <dd class="col-md-5">@detail.DetailDec</dd>
+                                </dl>
+                            }
+
+                            @*<hr style="border-top: 1px solid #008b8b;" />*@
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- دررباره محصول -->
+</div>
